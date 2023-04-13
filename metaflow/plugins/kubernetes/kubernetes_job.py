@@ -530,11 +530,7 @@ class RunningJob(object):
     def has_failed(self):
         # Job is in a terminal state and either the status is marked as failed
         # or the Job is not allowed to launch any more pods
-        return self.is_done and (
-            bool(self._job["status"].get("failed"))
-            or (self._job["spec"]["parallelism"] == 0)
-            or (self._pod.get("status", {}).get("phase") == "Failed")
-        )
+        return self.is_done and not self.has_succeeded
 
     @property
     def is_running(self):

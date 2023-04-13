@@ -328,6 +328,11 @@ class Kubernetes(object):
 
         if self._job.has_failed:
             exit_code, reason = self._job.reason
+            if exit_code is None:
+                raise KubernetesException(
+                    "Task failed with exit code None. "
+                    "This could be a transient error. Use @retry to retry."
+                )
             msg = next(
                 msg
                 for msg in [

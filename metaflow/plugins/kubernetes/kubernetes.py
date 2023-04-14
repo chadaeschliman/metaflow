@@ -153,7 +153,6 @@ class Kubernetes(object):
         env=None,
         tolerations=None,
     ):
-
         if env is None:
             env = {}
 
@@ -326,8 +325,8 @@ class Kubernetes(object):
         #        truncated logs if it doesn't.
         # TODO : For hard crashes, we can fetch logs from the pod.
 
-        if self._job.has_failed:
-            exit_code, reason = self._job.reason
+        exit_code, reason = self._job.reason
+        if self._job.has_failed or exit_code is None:
             if exit_code is None:
                 raise KubernetesException(
                     "Task failed with exit code None. "
@@ -358,7 +357,6 @@ class Kubernetes(object):
                 "%s. This could be a transient error. Use @retry to retry." % msg
             )
 
-        exit_code, _ = self._job.reason
         echo(
             "Task finished with exit code %s." % exit_code,
             "stderr",

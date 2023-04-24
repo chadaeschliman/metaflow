@@ -329,7 +329,7 @@ class Kubernetes(object):
         if self._job.has_failed or exit_code is None:
             if exit_code is None:
                 raise KubernetesException(
-                    f'{self._job["status"]=}, {self._job["spec"]["parallelism"]=}, {self._pod.get("status", {}).get("phase")=}\n'
+                    f'{self._job._job["status"]=}, {self._job._job["spec"]["parallelism"]=}, {self._job._pod.get("status", {}).get("phase")=}\n'
                     f"{self._job.is_running=}, {self._job.is_done=}, {self._job.has_failed=}, {self._job.has_succeeded=}\n"
                     "Task failed with exit code None. "
                     "This could be a transient error. Use @retry to retry."

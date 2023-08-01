@@ -114,6 +114,7 @@ def format_result_line(idx, prefix, url="", local=""):
 # with better error handling code.
 def normalize_client_error(err):
     error_code = err.response["Error"]["Code"]
+    print(f"******** S3 error: {error_code} **********")
     try:
         return int(error_code)
     except ValueError:

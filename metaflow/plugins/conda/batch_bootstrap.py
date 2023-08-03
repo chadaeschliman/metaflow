@@ -89,11 +89,11 @@ def install_conda_environment(env_id, packages):
         'if ! type conda  >/dev/null 2>&1; \
             then wget --no-check-certificate https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -O Miniforge3.sh >/dev/null 2>&1; \
             bash ./Miniforge3.sh -b >/dev/null 2>&1; export PATH=$PATH:$HOME/miniforge3/bin; echo "installed conda!!"; fi',
-        'if ! type micromamba >/dev/null 2>&1; \
-            then curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba; \
-            bash ./bin/micromamba shell hook -s bash; echo "installed micromamba"; fi',
+        'if ! type mamba >/dev/null 2>&1; \
+            conda install mamba -c conda-forge --yes;\
+            echo "installed mamba"; fi',
         "cd {0}".format(os.path.join(os.getcwd(), "pkgs")),
-        "micromamba create --yes --no-default-packages -p {0} --no-deps {1} >/dev/null 2>&1".format(
+        "mamba create --yes --no-default-packages -p {0} --no-deps {1} >/dev/null 2>&1".format(
             os.path.join(os.getcwd(), env_id), " ".join(packages)
         ),
         "cd {0}".format(os.getcwd()),
